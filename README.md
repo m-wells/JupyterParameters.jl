@@ -1,4 +1,4 @@
-# Julia Jupyter NoteBook PARAMeterizer (jjnbparam)
+# Julia Jupyter NoteBook PARAMeterizer
 Running batch jobs in Jupyter notebooks can be quite useful.
 The main reason I want to do this is so I can have beautiful "log" files of my data analysis, complete with inline plots using [PyPlot](https://github.com/JuliaPy/PyPlot.jl).
 
