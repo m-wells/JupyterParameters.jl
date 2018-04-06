@@ -19,7 +19,7 @@ jjnbparam notebook.ipynb notebook.ipynb --varname1 varvalue1 --varname2 varvalue
 ```
 
 The target notebook needs to include a `parameters` cell:
-![Example of a tagged parameters cell](https://github.com/m-wells/jjnbparam/parameters_cell_tagging.png)
+![Example of a tagged parameters cell](https://github.com/m-wells/jjnbparam/blob/master/parameters_cell_tagging.png)
 
 This project was inspired by [papermill](https://github.com/nteract/papermill)
 
