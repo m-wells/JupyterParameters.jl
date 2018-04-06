@@ -1,0 +1,12 @@
+#! /bin/sh
+#
+# jjnbparam
+# Copyright (C) 2018 Mark Wells <mwellsa@gmail.com>
+#
+# Distributed under terms of the MIT license.
+#
+
+DIR="/home/mark/devel/jjnbparam"
+
+julia ${DIR}/jjnbparam.jl "$@"
+jupyter nbconvert --to notebook --execute "$2" --output "$2"
