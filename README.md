@@ -8,7 +8,7 @@ jupyter nbconvert --to notebook --execute mynotebook.ipynb
 ```
 The issue with using `nbconvert` in this fashion, is you **_can not pass arguments to the notebook_**.
 
-Using `jjnbparam` you are able to pass in variables to a notebook.
+Using `jjnbparam` you are able to pass variables to a notebook.
 ```
 jjnbparam notebook_orig.ipynb notebook_new.ipynb --varname1 varvalue1 --varname2 varvalue2 ...
 ```
@@ -18,7 +18,7 @@ If one wants to overwrite the original then
 jjnbparam notebook.ipynb notebook.ipynb --varname1 varvalue1 --varname2 varvalue2 ...
 ```
 
-The target notebook needs to include a `parameters` cell:
+The target notebook needs to include a `parameters` cell (this does not have to be the first cell):
 ![Example of a tagged parameters cell](https://github.com/m-wells/jjnbparam/blob/master/parameters_cell_tagging.png)
 
 This project was inspired by [papermill](https://github.com/nteract/papermill)
