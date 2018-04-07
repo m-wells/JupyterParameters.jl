@@ -101,7 +101,7 @@ function paramitify_jjnb( infile :: String
     return jsondict
 end
 
-function main(args)
+function main(args::Vector{String})
     """
     the top level of this program
     """
@@ -120,10 +120,14 @@ function main(args)
     args = args[3:end]
     
     open(outfile, "w") do outf
+        println("Paramitification of $infile...")
         jsondict = paramitify_jjnb(infile, args)
+        println("Successful replacement of parameters!")
         JSON.print(outf, jsondict, 1)
+        println("Wrote $outfile\!")
     end
 
+    return 0
 end
 
 main(ARGS)

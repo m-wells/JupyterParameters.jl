@@ -23,5 +23,17 @@ The target notebook needs to include a `parameters` cell:
 
 This project was inspired by [papermill](https://github.com/nteract/papermill)
 
-# TODO:
-Create a Makefile to simplify installation.
+# Installation
+## if you have sudo access
+```
+cd <your build directory>
+git clone https://github.com/m-wells/jjnbparam
+make
+```
+## if you want to install as user
+```
+cd <your build directory>
+git clone https://github.com/m-wells/jjnbparam
+PREFIX=~/.bin make
+# then either add ~/.bin to your PATH or write an alias
+```

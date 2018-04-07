@@ -6,7 +6,7 @@
 # Distributed under terms of the MIT license.
 #
 
-DIR="/home/mark/devel/jjnbparam"
+DIR="$(dirname "$(readlink -f "$0")")"
 
 julia ${DIR}/jjnbparam.jl "$@"
 jupyter nbconvert --to notebook --execute "$2" --output "$2"
