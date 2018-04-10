@@ -34,6 +34,6 @@ make
 ```
 cd <your build directory>
 git clone https://github.com/m-wells/jjnbparam
-PREFIX=~/.bin make
+PREFIX=~/bin make
 # then either add ~/.bin to your PATH or write an alias
 ```
