@@ -7,6 +7,7 @@
 
 install:
 	@julia <<- EOF
+	Pkg.update()
 	println("Using a \"HEREDOC\" to install Julia packages...")
 	println("Installing DataStructures")
 	Pkg.add("DataStructures")
@@ -14,8 +15,6 @@ install:
 	Pkg.add("JSON")
 	println("Installing ArgParse")
 	Pkg.add("ArgParse")
-	println("Installing PackageCompiler")
-	Pkg.add("PackageCompiler")
 	EOF
 	#
 	if [ -z $(PREFIX) ]; then

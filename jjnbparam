@@ -9,4 +9,8 @@
 DIR="$(dirname "$(readlink -f "$0")")"
 
 julia ${DIR}/jjnbparam.jl "$@"
-jupyter nbconvert --to notebook --execute "$2" --output "$2"
+jupyter nbconvert --to notebook \
+    --execute \
+    --allow-errors \
+    --ExecutePreprocessor.timeout=-1 \
+    "$2" --output "$2"

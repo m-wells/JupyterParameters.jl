@@ -79,10 +79,16 @@ function paramitify_jjnb( infile :: String
     for (i,defpar) in enumerate(default_params)
 
         k = defpar[1]
+        defv = defpar[2]
         if k[1] != '#'
 
             v = passed_params[k]
             if v != nothing
+
+                # check if we need to put quotes around the value
+                if defv[1] == '"'
+                    v = string('"',v,'"')
+                end
 
                 line = string( k
                              , " = "
