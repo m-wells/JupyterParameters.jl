@@ -8,9 +8,17 @@
 
 DIR="$(dirname "$(readlink -f "$0")")"
 
+REFNOTE=$1
+OUTNOTE=$2
+
 julia ${DIR}/jjnbparam.jl "$@"
+
+OUTDIR="$(dirname $OUTNOTE)"
+cd $OUTDIR
+OUTNAME="$(basename $OUTNOTE)"
+
 jupyter nbconvert --to notebook \
     --execute \
     --allow-errors \
     --ExecutePreprocessor.timeout=-1 \
-    "$2" --output "$2"
+    ${OUTNAME} --output ${OUTNAME}
