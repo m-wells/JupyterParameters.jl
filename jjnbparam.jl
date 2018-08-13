@@ -22,7 +22,7 @@ function find_parameters_cell(jsondict::DataStructures.OrderedDict)
     """
     search the jjnb for the cell taged with "parameters"
     """
-    param_cell = Array{Int,1}(undef,0)
+    param_cell = Array{Int,1}(0)
     
     for (i,cell) in enumerate(jsondict["cells"])
         if haskey(cell["metadata"], "tags")
