@@ -65,7 +65,7 @@ function paramitify_jjnb( infile :: String
 
     s = ArgParseSettings()
     for defpar in default_params
-        if defpar[1][1] != '#'
+        if defpar[1] != '#'
             add_arg_table( s
                          , string( "--"
                                  , defpar[1]
@@ -75,14 +75,12 @@ function paramitify_jjnb( infile :: String
     end
     passed_params = parse_args(args, s)
 
-
     for (i,defpar) in enumerate(default_params)
 
         k = defpar[1]
         defv = defpar[2]
-        if (k[1] != '#') || (k[1] != ';')
+        if !((k[1] == '#') || (k[1] == ';'))
 
-            println(k)
             v = passed_params[k]
             if v != nothing
 
