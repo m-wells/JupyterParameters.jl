@@ -130,7 +130,7 @@ function main(args::Vector{String})
         jsondict = paramitify_jjnb(infile, args)
         println("Successful replacement of parameters!")
         JSON.print(outf, jsondict, 1)
-        println("Wrote $outfile\!")
+        println("Wrote $outfile")
     end
 
     return 0
