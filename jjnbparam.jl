@@ -82,6 +82,7 @@ function paramitify_jjnb( infile :: String
         defv = defpar[2]
         if (k[1] != '#') || (k[1] != ';')
 
+            prinln(k)
             v = passed_params[k]
             if v != nothing
 
