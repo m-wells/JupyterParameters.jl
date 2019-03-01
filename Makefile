@@ -7,6 +7,7 @@
 
 install:
 	@julia <<- EOF
+	using Pkg
 	Pkg.update()
 	println("Using a \"HEREDOC\" to install Julia packages...")
 	println("Installing DataStructures")
