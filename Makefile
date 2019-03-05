@@ -3,34 +3,40 @@
 # Mark Wells, 2018-03-23 14:38
 #
 
+JULIAPKGS = \
+	Conda \
+	IJulia \
+	ArgParse \
+	JSON \
+	DataStructures
+
 .ONESHELL:
 
-install:
-	@julia <<- EOF
-	using Pkg
-	Pkg.update()
-	println("Using a \"HEREDOC\" to install Julia packages...")
-	println("Installing DataStructures")
-	Pkg.add("DataStructures")
-	println("Installing JSON")
-	Pkg.add("JSON")
-	println("Installing ArgParse")
-	Pkg.add("ArgParse")
+all: juliapkgs condapkgs
+
+juliapkgs:
+	@for pkg in $(JULIAPKGS) ; do \
+		julia --color=yes <<- EOF
+		using Pkg
+		printstyled("Installing $$pkg\n", bold=true, color=:orange)
+		pkg"add $$pkg"
+		EOF
+	done
+
+condapkgs:
+	@julia --color=yes <<- EOF
+		using Conda
+		printstyled( "Adding conda-forge channel to Conda\n"
+				   , bold=true
+				   , color=:cyan
+				   )
+		Conda.add_channel("conda-forge")
+		printstyled( "Installing jupyter_contrib_nbextensions via Conda\n"
+				   , bold=true
+				   , color=:orange
+				   )
+		Conda.add("jupyter_contrib_nbextensions")
 	EOF
-	#
-	if [ -z $(PREFIX) ]; then
-		# default to /usr/local/bin if PREFIX wasn't supplied
-		sudo ln -sf $$(pwd)/jjnbparam /usr/local/bin/
-	else
-		if [ -w $(PREFIX) ]; then
-			# run as user without sudo
-			ln -sf $$(pwd)/jjnbparam $(PREFIX)
-		else
-			# run as user with sudo
-			sudo ln -sf $$(pwd)/jjnbparam $(PREFIX)
-		fi
-	fi
 
 # vim:ft=make
 #
-

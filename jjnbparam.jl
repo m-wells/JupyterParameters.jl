@@ -18,11 +18,13 @@ import DataStructures
 import JSON
 using ArgParse
 
+####################################################################################################
+
 function find_parameters_cell(jsondict::DataStructures.OrderedDict)
     """
     search the jjnb for the cell taged with "parameters"
     """
-    param_cell = Array{Int,1}(0)
+    param_cell = Vector{Int}(undef,0)
     
     for (i,cell) in enumerate(jsondict["cells"])
         if haskey(cell["metadata"], "tags")
@@ -125,14 +127,39 @@ function main(args::Vector{String})
     args = args[3:end]
     
     open(outfile, "w") do outf
-        println("Paramitification of $infile...")
+        printstyled( string( "Starting paramitification of "
+                           , infile
+                           , "...\n")
+                   , color = :orange
+                   )
         jsondict = paramitify_jjnb(infile, args)
-        println("Successful replacement of parameters!")
-        JSON.print(outf, jsondict, 1)
-        println("Wrote $outfile")
+        printstyled( "Successful replacement of parameters!\n"
+                   , color = :green
+                   )
+        JSON.print( outf
+                  , jsondict
+                  , 1
+                  )
+        printstyled( string( "Wrote "
+                           , outfile
+                           , '\n'
+                           )
+                   , color = :green
+                   )
     end
 
-    return 0
+    printstyled( string( "Running "
+                       , outfile
+                       , '\n'
+                       )
+               , color = :orange
+               )
+
+    #jupyter nbconvert --to notebook \
+    #    --execute \
+    #    --allow-errors \
+    #    --ExecutePreprocessor.timeout=-1 \
+    #    ${OUTNAME} --output ${OUTNAME}
 end
 
 main(ARGS)

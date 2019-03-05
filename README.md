@@ -20,20 +20,29 @@ jjnbparam notebook.ipynb notebook.ipynb --varname1 varvalue1 --varname2 varvalue
 
 The target notebook needs to include a `parameters` cell (this does not have to be the first cell):
 ![Example of a tagged parameters cell](https://github.com/m-wells/jjnbparam/blob/master/parameters_cell_tagging.png)
+To create a parameters cell simply edit the cell's metadata to include the following:
+```json
+{
+    "tags": [
+        "parameters"
+    ]
+}
+```
+It is also helpful to have a comment inside of the cell like so
+```julia
+# this is the parameters cell
+foo = 10
+bar = "hi"
+```
+In the cell above `foo` and `bar` are defined with what can be thought of as default values which will be used if the user does not replace them.
+
 
 This project was inspired by [papermill](https://github.com/nteract/papermill)
 
 # Installation
-## if you have sudo access
 ```
 cd <your build directory>
 git clone https://github.com/m-wells/jjnbparam
 make
 ```
-## if you want to install as user
-```
-cd <your build directory>
-git clone https://github.com/m-wells/jjnbparam
-PREFIX=~/bin make
-# then either add ~/.bin to your PATH or write an alias
-```
+Then add `jjnbparam` to your path (if you want).
