@@ -20,6 +20,7 @@ jjnbparam notebook.ipynb notebook.ipynb --varname1 varvalue1 --varname2 varvalue
 
 The target notebook needs to include a `parameters` cell (this does not have to be the first cell):
 ![Example of a tagged parameters cell](https://github.com/m-wells/jjnbparam/blob/master/parameters_cell_tagging.png)
+
 To create a parameters cell simply edit the cell's metadata to include the following:
 ```json
 {
