@@ -7,25 +7,4 @@
 #
 
 DIR="$(dirname "$(readlink -f "$0")")"
-
-REFNOTE=$1
-shift
-OUTNOTE=$(pwd)/$1
-shift
-
-#echo $OUTNOTE
-julia --color=yes ${DIR}/jjnbparam.jl \
-    ${REFNOTE} \
-    ${OUTNOTE} \
-    $@
-
-CSDIR=$(julia -e "import Conda; print(Conda.SCRIPTDIR)")
-#OUTDIR="$(dirname $OUTNOTE)"
-#cd $OUTDIR
-#OUTNAME="$(basename $OUTNOTE)"
-#
-$CSDIR/jupyter nbconvert --to notebook \
-    --execute \
-    --allow-errors \
-    --ExecutePreprocessor.timeout=-1 \
-    ${OUTNOTE} --output ${OUTNOTE}
+julia --color=yes ${DIR}/jjnbparam.jl $@

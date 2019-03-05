@@ -17,6 +17,7 @@
 import DataStructures
 import JSON
 using ArgParse
+using Conda
 
 ####################################################################################################
 
@@ -44,9 +45,9 @@ function find_parameters_cell(jsondict::DataStructures.OrderedDict)
     return param_cell
 end
 
-function paramitify_jjnb( infile :: String
-                        , args   :: AbstractArray{String,1}
-                        )        :: DataStructures.OrderedDict
+function paramitify_jjnb( infile        :: String
+                        , passed_params :: Dict
+                        )               :: DataStructures.OrderedDict
     """
     replace the default values with the passed values and return the jsondict
     """
@@ -65,17 +66,17 @@ function paramitify_jjnb( infile :: String
         end
     end
 
-    s = ArgParseSettings()
-    for defpar in default_params
-        if defpar[1] != '#'
-            add_arg_table( s
-                         , string( "--"
-                                 , defpar[1]
-                                 )
-                         )
-        end
-    end
-    passed_params = parse_args(args, s)
+    #s = ArgParseSettings()
+    #for defpar in default_params
+    #    if defpar[1] != '#'
+    #        add_arg_table( s
+    #                     , string( "--"
+    #                             , defpar[1]
+    #                             )
+    #                     )
+    #    end
+    #end
+    #passed_params = parse_args(args, s)
 
     for (i,defpar) in enumerate(default_params)
 
@@ -83,8 +84,8 @@ function paramitify_jjnb( infile :: String
         defv = defpar[2]
         if !((k[1] == '#') || (k[1] == ';'))
 
-            v = passed_params[k]
-            if v != nothing
+            if k in keys(passed_params)
+                v = passed_params[k]
 
                 # check if we need to put quotes around the value
                 if defv[1] == '"'
@@ -112,6 +113,12 @@ function main(args::Vector{String})
     """
     the top level of this program
     """
+    # ---- defaults ----
+    # can be overwritten by passing --timeout 1234
+    timeout = -1
+    # can be overwritten by passing --kernel_name some_julia
+    kernel_name = "julia-nodeps-1.1"
+
     if length(args) < 4
         msg = "Requires at least: infile outfile --var value\n"
         msg = string( msg
@@ -125,14 +132,30 @@ function main(args::Vector{String})
     outfile = args[2]
 
     args = args[3:end]
-    
+    nargs = div(length(args), 2)
+
+    s = ArgParseSettings()
+    for i in 1:2:length(args)
+        add_arg_table(s, args[i])
+    end
+    passed_params = parse_args(args, s)
+
+    if "timeout" in keys(passed_params)
+        timeout = passed_params["timeout"]
+        delete!(passed_params, "timeout")
+    end
+    if "kernel_name" in keys(passed_params)
+        kernel_name = passed_params["kernel_name"]
+        delete!(passed_params, "kernel_name")
+    end
+
     open(outfile, "w") do outf
         printstyled( string( "Starting paramitification of "
                            , infile
                            , "...\n")
                    , color = :orange
                    )
-        jsondict = paramitify_jjnb(infile, args)
+        jsondict = paramitify_jjnb(infile, passed_params)
         printstyled( "Successful replacement of parameters!\n"
                    , color = :green
                    )
@@ -155,11 +178,13 @@ function main(args::Vector{String})
                , color = :orange
                )
 
-    #jupyter nbconvert --to notebook \
-    #    --execute \
-    #    --allow-errors \
-    #    --ExecutePreprocessor.timeout=-1 \
-    #    ${OUTNAME} --output ${OUTNAME}
+    CONDASDIR=Conda.SCRIPTDIR
+
+    jnbcommand = `$CONDASDIR/jupyter nbconvert --to notebook --execute --allow-errors`
+    jnbcommand = `$jnbcommand --ExecutePreprocessor.timeout=$timeout`
+    jnbcommand = `$jnbcommand --ExecutePreprocessor.kernel_name=$kernel_name`
+    jnbcommand = `$jnbcommand $outfile --output $outfile`
+    run(jnbcommand)
 end
 
 main(ARGS)
