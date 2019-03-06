@@ -37,8 +37,20 @@ bar = "hi"
 ```
 In the cell above `foo` and `bar` are defined with what can be thought of as default values which will be used if the user does not replace them.
 
-
 This project was inspired by [papermill](https://github.com/nteract/papermill)
+
+## Customizing Notebook Execution
+The execution of the notebook can be customized with
+```sh
+jjnbparam refnote.ipynb outnote.ipynb \
+    --kernel_name julia-nodeps-1.1 \
+    --timeout -1 \
+    --var1 1234 \
+    --var2 "abcd"
+```
+where `kernel_name` specifies the [IJulia](https://github.com/JuliaLang/IJulia.jl) kernel and timeout defines the maximum time (in seconds) each notebook cell is allowed to run.
+These values are passed under-the-hood to `jupyter nbconvert` as [traitlets](https://nbconvert.readthedocs.io/en/latest/execute_api.html#execution-arguments-traitlets).
+If not passed the default values for `jupyter nbconvert` are used (again, see [traitlets](https://nbconvert.readthedocs.io/en/latest/execute_api.html#execution-arguments-traitlets)).
 
 # Installation
 ```

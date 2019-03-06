@@ -110,15 +110,6 @@ function paramitify_jjnb( infile        :: String
 end
 
 function main(args::Vector{String})
-    """
-    the top level of this program
-    """
-    # ---- defaults ----
-    # can be overwritten by passing --timeout 1234
-    timeout = -1
-    # can be overwritten by passing --kernel_name some_julia
-    kernel_name = "julia-nodeps-1.1"
-
     if length(args) < 4
         msg = "Requires at least: infile outfile --var value\n"
         msg = string( msg
@@ -139,16 +130,24 @@ function main(args::Vector{String})
         add_arg_table(s, args[i])
     end
     passed_params = parse_args(args, s)
+    #-----------------------------------------------------------------------------------------------
 
+    #-----------------------------------------------------------------------------------------------
+    CONDASDIR=Conda.SCRIPTDIR
+    jnbcommand = `$CONDASDIR/jupyter nbconvert --to notebook --execute --allow-errors`
     if "timeout" in keys(passed_params)
         timeout = passed_params["timeout"]
         delete!(passed_params, "timeout")
+        jnbcommand = `$jnbcommand --ExecutePreprocessor.timeout=$timeout`
     end
     if "kernel_name" in keys(passed_params)
         kernel_name = passed_params["kernel_name"]
         delete!(passed_params, "kernel_name")
+        jnbcommand = `$jnbcommand --ExecutePreprocessor.kernel_name=$kernel_name`
     end
+    #-----------------------------------------------------------------------------------------------
 
+    #-----------------------------------------------------------------------------------------------
     open(outfile, "w") do outf
         printstyled( string( "Starting paramitification of "
                            , infile
@@ -178,11 +177,6 @@ function main(args::Vector{String})
                , color = :orange
                )
 
-    CONDASDIR=Conda.SCRIPTDIR
-
-    jnbcommand = `$CONDASDIR/jupyter nbconvert --to notebook --execute --allow-errors`
-    jnbcommand = `$jnbcommand --ExecutePreprocessor.timeout=$timeout`
-    jnbcommand = `$jnbcommand --ExecutePreprocessor.kernel_name=$kernel_name`
     jnbcommand = `$jnbcommand $outfile --output $outfile`
     run(jnbcommand)
 end
