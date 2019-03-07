@@ -60,10 +60,12 @@ function paramitify_jjnb( infile        :: String
     for (i,line) in enumerate(pcell)
         if (line[1] == '#') | all(isspace,line)
             default_params[string('#',i)] = line
+        elseif (line[1] == ';')
+            default_params[string(';',i)] = line
         else
             varname_val = strip.(split(line, "="))
             @assert( length(varname_val) == 2
-                   , string( "Expected something of the form \" var = val \" not got "
+                   , string( "Expected something of the form \" var = val \" got "
                            , varname_val
                            )
                    )
