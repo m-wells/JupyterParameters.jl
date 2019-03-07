@@ -126,17 +126,20 @@ function main(args::Vector{String})
                     )
         error(msg)
     end
-    @show args
 
-    infile  = args[1]
-    outfile = args[2]
+    infile  = popfirst!(args)
+    outfile = popfirst!(args)
 
-    args = args[3:end]
     nargs = div(length(args), 2)
 
     s = ArgParseSettings()
     for i in 1:2:length(args)
-        @show args[i]
+        arg = args[i]
+        @assert( arg[1:2] == "--"
+               , string( "there appears to be an error in the passed parameter list: "
+                       , args
+                       )
+               )
         add_arg_table(s, args[i])
     end
     passed_params = parse_args(args, s)
