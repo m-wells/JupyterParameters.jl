@@ -126,6 +126,7 @@ function main(args::Vector{String})
                     )
         error(msg)
     end
+    @show args
 
     infile  = args[1]
     outfile = args[2]
