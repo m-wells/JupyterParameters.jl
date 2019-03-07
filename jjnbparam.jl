@@ -135,6 +135,7 @@ function main(args::Vector{String})
 
     s = ArgParseSettings()
     for i in 1:2:length(args)
+        @show args[i]
         add_arg_table(s, args[i])
     end
     passed_params = parse_args(args, s)
