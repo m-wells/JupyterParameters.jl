@@ -1,4 +1,6 @@
 # JupyterParam
+[![Build Status](https://travis-ci.com/m-wells/jjnbparam.svg?branch=master)](https://travis-ci.com/m-wells/jjnbparam)
+
 Treat Jupyter notebooks as visual scripts which can be executed from the command line or from a script.
 JupyterParam creates and executes a new copy of the notebook with the parameters that have been passed and preserves the original.
 
