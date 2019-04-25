@@ -7,3 +7,4 @@ julia:
   - nightly
 notifications:
   email: false
+script: yes | julia .travis/run-tests.jl
