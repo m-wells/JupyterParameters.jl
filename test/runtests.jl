@@ -8,6 +8,7 @@
 using Test
 using JSON
 using DataStructures
+using IJulia
 
 using JupyterParam
 
@@ -26,7 +27,18 @@ function get_outputs( jsondict :: OrderedDict
     return jsondict["cells"][cell]["outputs"][1]["data"]["text/plain"][1]
 end
 
+function change_kernel(jsondict :: OrderedDict) 
+    jsondict["metadata"]["kernelspec"]["name"] = readdir(IJulia.kerneldir())[1]
+    return jsondict
+end
+
 @testset "testing JupyterParam" begin
+
+    origdict = change_kernel(JSON.parsefile(origfile, dicttype=OrderedDict))
+    open(origfile, "w") do outf
+        JSON.print(outf, jsondict, 1)
+    end
+
     deleteat!(ARGS,eachindex(ARGS))
 
     x = "y"
@@ -39,7 +51,6 @@ end
     push!(ARGS,"--xy",xy)
     jjnbparam()
     
-    origdict = JSON.parsefile(origfile, dicttype=OrderedDict)
     outdict = JSON.parsefile(outfile, dicttype=OrderedDict)
     
     origcell = get_source(origdict,1)
