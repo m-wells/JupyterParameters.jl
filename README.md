@@ -29,7 +29,7 @@ To create a parameters cell simply edit the cell's metadata to include the follo
     ]
 }
 ```
-It is also helpful to have a comment inside of the cell like so
+It is also helpful (for the user) to have a comment inside of the cell like so
 ```julia
 # this is the parameters cell
 foo = 10
