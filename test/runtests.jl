@@ -36,7 +36,7 @@ end
 
     origdict = change_kernel(JSON.parsefile(origfile, dicttype=OrderedDict))
     open(origfile, "w") do outf
-        JSON.print(outf, jsondict, 1)
+        JSON.print(outf, origdict, 1)
     end
 
     deleteat!(ARGS,eachindex(ARGS))
