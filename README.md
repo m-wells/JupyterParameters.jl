@@ -67,11 +67,3 @@ jjnbparam refnote.ipynb outnote.ipynb \
 where `kernel_name` specifies the [IJulia](https://github.com/JuliaLang/IJulia.jl) kernel and timeout defines the maximum time (in seconds) each notebook cell is allowed to run.
 These values are passed under-the-hood to `jupyter nbconvert` as [traitlets](https://nbconvert.readthedocs.io/en/latest/execute_api.html#execution-arguments-traitlets).
 If not passed the default values for `jupyter nbconvert` are used (again, see [traitlets](https://nbconvert.readthedocs.io/en/latest/execute_api.html#execution-arguments-traitlets)).
-
-# Installation
-```
-cd <your build directory>
-git clone https://github.com/m-wells/jjnbparam
-make
-```
-Then add `jjnbparam` to your path (if you want).
