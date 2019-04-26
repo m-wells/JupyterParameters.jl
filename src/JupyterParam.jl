@@ -171,8 +171,8 @@ function jjnbparam(args :: AbstractVector{String})
         delete!(passed_params, "timeout")
     end
     if "kernel_name" in keys(passed_params)
-        delete!(passed_params, "kernel_name")
         push!(jnb_cmd.exec, "--ExecutePreprocessor.kernel_name=$(passed_params["kernel_name"])")
+        delete!(passed_params, "kernel_name")
     end
 
     open(outfile, "w") do outf
