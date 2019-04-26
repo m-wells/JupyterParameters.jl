@@ -79,6 +79,8 @@ end
 end
 
 @testset "jupyter nb extensions" begin
+    x = "y"
+
     deleteat!(ARGS,eachindex(ARGS))
     push!(ARGS, origfile, outfile)
     push!(ARGS,"--x",x)
