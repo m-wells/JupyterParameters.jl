@@ -1,10 +1,10 @@
-# JupyterParam
+# JupyterParameters
 [![Build Status](https://travis-ci.com/m-wells/JupyterParameters.jl.svg?branch=master)](https://travis-ci.com/m-wells/JupyterParameters.jl)
 
 Treat Jupyter notebooks as visual scripts which can be executed from the command line or from a script.
-JupyterParam creates and executes a new copy of the notebook with the parameters that have been passed and preserves the original.
+JupyterParameters creates and executes a new copy of the notebook with the parameters that have been passed and preserves the original.
 
-My main use case for JupyterParam is for batch processes that I also want to generate inline sophiscated plots.
+My main use case for JupyterParameters is for batch processes that I also want to generate inline sophiscated plots.
 This essentially creates log files of my data analysis along with plots.
 Running Jupyter notebooks from the command line is already possible using
 ```
@@ -12,16 +12,16 @@ jupyter nbconvert --to notebook --execute mynotebook.ipynb
 ```
 The issue with using `nbconvert` in this fashion, is you **_can not pass arguments to the notebook_**.
 
-Using `jjnbparam` provided by JupyterParam you are able to pass variables to a notebook.
+Using `jjnbparam` provided by JupyterParameters you are able to pass variables to a notebook.
 ```julia
-using JupyterParam
+using JupyterParameters
 jjnbparam(["notebook_orig.ipynb","notebook_new.ipynb","--varname1","varvalue1","--varname2","varvalue2",...]
 ```
 
 ## How to call jjnbparam from the shell
 We can create an alias in `.bashrc` as
 ```
-alias jjnbparam='julia -E "using JupyterParam; jjnbparam()"'
+alias jjnbparam='julia -E "using JupyterParameters; jjnbparam()"'
 ```
 and then the command (from the shell) becomes
 ```
