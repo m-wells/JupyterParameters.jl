@@ -22,9 +22,9 @@ would only need to be done the first time
 function install_jupyter()
     jupyter = IJulia.JUPYTER
     if jupyter == "jupyter" || jupyter == "jupyter.exe" # look in PATH
-        jupyter = Sys.which(exe("jupyter"))
+        jupyter = Sys.which(IJulia.exe("jupyter"))
         if jupyter === nothing
-            jupyter = joinpath(Conda.SCRIPTDIR, exe("jupyter"))
+            jupyter = joinpath(Conda.SCRIPTDIR, IJulia.exe("jupyter"))
         end
     end
     if !Sys.isexecutable(jupyter)
