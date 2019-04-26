@@ -1,10 +1,11 @@
 name = "JupyterParam"
 uuid = "2f2169dc-6776-11e9-1952-6179d4a35fe3"
 authors = ["m-wells <maw461@psu.edu>"]
-version = "0.1.0"
+version = "0.1.1-DEV"
 
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"

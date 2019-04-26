@@ -13,6 +13,28 @@ using DataStructures
 using JSON
 using ArgParse
 using IJulia
+using Conda
+
+"""
+install jupyter (IF NEEDED) via conda
+would only need to be done the first time
+"""
+function install_jupyter()
+    jupyter = IJulia.JUPYTER
+    if !Sys.isexecutable(jupyter)
+        if dirname(jupyter) == abspath(Conda.SCRIPTDIR)
+           printstyled( """
+                        Couldn't find jupyter, installing via Conda . . .
+
+                        This is a one time event (per JupyterParam install) at most
+                        You shouldn't see this message again and if you do please report it to the developer
+                        """
+                      , color = :cyan
+                      )
+           Conda.add(jupyter)
+        end
+    end
+end
 
 """
 search the jjnb for the cell taged with "parameters"
@@ -131,6 +153,7 @@ function jjnbparam(args :: AbstractVector{String})
     end
     passed_params = parse_args(args, s)
 
+    install_jupyter()
     jnb_cmd = IJulia.find_jupyter_subcommand("nbconvert")
 
     push!(jnb_cmd.exec, "--to=notebook", "--execute", "--allow-errors")
