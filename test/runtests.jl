@@ -10,7 +10,7 @@ using JSON
 using DataStructures
 using IJulia
 
-using JupyterParam
+using JupyterParameters
 
 origfile = (@__DIR__)*"/origfile.ipynb"
 outfile  = (@__DIR__)*"/outfile.ipynb"
@@ -28,7 +28,7 @@ function get_outputs( jsondict :: OrderedDict
 end
 
 function get_kernel()
-    return JupyterParam.get_kernels()[1]
+    return JupyterParameters.get_kernels()[1]
 end
 
 function change_kernel(jsondict :: OrderedDict) 
