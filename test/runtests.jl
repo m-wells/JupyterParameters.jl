@@ -84,7 +84,8 @@ end
     deleteat!(ARGS,eachindex(ARGS))
     push!(ARGS, origfile, outfile)
     push!(ARGS,"--x",x)
-    push!(ARGS,"--kernel_name",get_kernel())
+    kernel = get_kernel()
+    push!(ARGS,"--kernel_name",kernel)
     push!(ARGS,"--timeout","-1")
     jjnbparam()
 
@@ -100,5 +101,5 @@ end
     push!(ARGS, origfile, outfile)
     push!(ARGS,"--x",x)
     push!(ARGS,"--kernel_name","ajnkfnq234iqnwerht")
-    @testthrows jjnbparam()
+    @test_throws ErrorException jjnbparam()
 end

@@ -185,7 +185,7 @@ function jjnbparam(args :: AbstractVector{String})
                   """
                  )
         end
-        push!(jnb_cmd.exec, "--ExecutePreprocessor.kernel_name=$kernel)")
+        push!(jnb_cmd.exec, "--ExecutePreprocessor.kernel_name=$kernel")
         delete!(passed_params, "kernel_name")
     end
 
