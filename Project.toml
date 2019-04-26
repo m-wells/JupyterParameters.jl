@@ -1,7 +1,7 @@
 name = "JupyterParam"
 uuid = "2f2169dc-6776-11e9-1952-6179d4a35fe3"
 authors = ["m-wells <maw461@psu.edu>"]
-version = "0.1.1-DEV"
+version = "0.1.0"
 
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"

@@ -21,6 +21,12 @@ would only need to be done the first time
 """
 function install_jupyter()
     jupyter = IJulia.JUPYTER
+    if jupyter == "jupyter" || jupyter == "jupyter.exe" # look in PATH
+        jupyter = Sys.which(exe("jupyter"))
+        if jupyter === nothing
+            jupyter = joinpath(Conda.SCRIPTDIR, exe("jupyter"))
+        end
+    end
     if !Sys.isexecutable(jupyter)
         if dirname(jupyter) == abspath(Conda.SCRIPTDIR)
            printstyled( """
@@ -31,7 +37,9 @@ function install_jupyter()
                         """
                       , color = :cyan
                       )
-           Conda.add(jupyter)
+           Conda.add("jupyter")
+        else
+            error("$jupyter is not installed, cannot run $subcommand")
         end
     end
 end
