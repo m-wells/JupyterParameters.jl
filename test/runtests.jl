@@ -46,8 +46,8 @@ end
     deleteat!(ARGS,eachindex(ARGS))
 
     origcell1 = get_source(origdict,1)
-    origcell2 = get_source(origdict,1)
-    origcell3 = get_source(origdict,1)
+    origcell2 = get_source(origdict,2)
+    origcell3 = get_source(origdict,3)
     x = "y"
     y = "7"
     xy = "2"
