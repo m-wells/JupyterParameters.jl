@@ -85,6 +85,7 @@ end
     push!(ARGS, origfile, outfile)
     push!(ARGS,"--x",x)
     push!(ARGS,"--kernel_name",get_kernel())
+    push!(ARGS,"--timeout","-1")
     jjnbparam()
 
     outdict = JSON.parsefile(outfile, dicttype=OrderedDict)
