@@ -86,5 +86,8 @@ end
     push!(ARGS,"--x",x)
     push!(ARGS,"--kernel_name",get_kernel())
     jjnbparam()
+
+    outdict = JSON.parsefile(outfile, dicttype=OrderedDict)
+    outcell  = get_source(outdict,1)
     @test outcell[1] == string("x = \"$x\"\n")
 end
