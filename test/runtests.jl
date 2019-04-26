@@ -27,8 +27,12 @@ function get_outputs( jsondict :: OrderedDict
     return jsondict["cells"][cell]["outputs"][1]["data"]["text/plain"][1]
 end
 
+function get_kernel()
+    return readdir(IJulia.kerneldir())[1]
+end
+
 function change_kernel(jsondict :: OrderedDict) 
-    jsondict["metadata"]["kernelspec"]["name"] = readdir(IJulia.kerneldir())[1]
+    jsondict["metadata"]["kernelspec"]["name"] = get_kernel()
     return jsondict
 end
 
@@ -41,6 +45,9 @@ end
 
     deleteat!(ARGS,eachindex(ARGS))
 
+    origcell1 = get_source(origdict,1)
+    origcell2 = get_source(origdict,1)
+    origcell3 = get_source(origdict,1)
     x = "y"
     y = "7"
     xy = "2"
@@ -65,4 +72,17 @@ end
 
     outcell  = get_outputs(outdict,3)
     @test outcell == "\"y\""
+
+    @test origcell1 == get_source(origdict,1)
+    @test origcell2 == get_source(origdict,2)
+    @test origcell3 == get_source(origdict,3)
+end
+
+@testset "jupyter nb extensions" begin
+    deleteat!(ARGS,eachindex(ARGS))
+    push!(ARGS, origfile, outfile)
+    push!(ARGS,"--x",x)
+    push!(ARGS,"--kernel_name",get_kernel())
+    jjnbparam()
+    @test outcell[1] == string("x = \"$x\"\n")
 end
