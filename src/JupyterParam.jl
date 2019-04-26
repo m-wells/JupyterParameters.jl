@@ -130,6 +130,7 @@ function jjnbparam(args :: AbstractVector{String})
     if length(args) < 4
         error("""
               Requires at least: infile outfile --var value
+              Received: $args
               if you want to overwrite the infile (NOT RECOMMENDED) then pass:
                   infile infile --var value
               """
