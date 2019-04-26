@@ -126,6 +126,10 @@ function paramitify_jjnb( infile        :: String
     return jsondict
 end
 
+function get_kernels()
+    return readdir(IJulia.kerneldir())
+end
+
 function jjnbparam(args :: AbstractVector{String})
     if length(args) < 4
         error("""
@@ -171,7 +175,17 @@ function jjnbparam(args :: AbstractVector{String})
         delete!(passed_params, "timeout")
     end
     if "kernel_name" in keys(passed_params)
-        push!(jnb_cmd.exec, "--ExecutePreprocessor.kernel_name=$(passed_params["kernel_name"])")
+        kernel = passed_params["kernel_name"]
+        kernels = get_kernels()
+        if !(kernel in kernels)
+            error("""
+                  The kernel you requested doesn't seem to be present in the listing.
+                  The availible kernels are:
+                  $kernels
+                  """
+                 )
+        end
+        push!(jnb_cmd.exec, "--ExecutePreprocessor.kernel_name=$kernel)")
         delete!(passed_params, "kernel_name")
     end
 

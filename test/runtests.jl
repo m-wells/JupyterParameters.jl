@@ -28,7 +28,7 @@ function get_outputs( jsondict :: OrderedDict
 end
 
 function get_kernel()
-    return readdir(IJulia.kerneldir())[1]
+    return JupyterParam.get_kernels()[1]
 end
 
 function change_kernel(jsondict :: OrderedDict) 
@@ -91,4 +91,14 @@ end
     outdict = JSON.parsefile(outfile, dicttype=OrderedDict)
     outcell  = get_source(outdict,1)
     @test outcell[1] == string("x = \"$x\"\n")
+end
+
+@testset "error testing" begin
+    x = "y"
+
+    deleteat!(ARGS,eachindex(ARGS))
+    push!(ARGS, origfile, outfile)
+    push!(ARGS,"--x",x)
+    push!(ARGS,"--kernel_name","ajnkfnq234iqnwerht")
+    @testthrows jjnbparam()
 end
