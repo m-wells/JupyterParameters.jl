@@ -5,15 +5,39 @@ matrix:
     - os: windows
       language: sh
       before_install:
-        - choco install julia
+        - choco install julia --version 0.7
       script:
         - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
         - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
-    - os:
-        - linux
-        - osx
+    - os: windows
+      language: sh
+      before_install:
+        - choco install julia --version 1.0
+      script:
+        - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
+        - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
+    - os: windows
+      language: sh
+      before_install:
+        - choco install julia --version nightly
+      script:
+        - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
+        - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
+    - os: linux
       language: julia
-      julia:
-        - 0.7
-        - 1.0
-        - nightly
+      julia: 0.7
+    - os: linux
+      language: julia
+      julia: 1.0
+    - os: linux
+      language: julia
+      julia: nightly
+    - os: osx
+      language: julia
+      julia: 0.7
+    - os: osx
+      language: julia
+      julia: 1.0
+    - os: osx
+      language: julia
+      julia: nightly
