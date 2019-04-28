@@ -47,7 +47,8 @@ end
 """
 search the jjnb for the cell taged with "parameters"
 """
-function find_parameters_cell(jsondict::OrderedDict)
+function find_parameters_cell( jsondict:: OrderedDict
+                             )         :: Int
     param_cell = Vector{Int}(undef,0)
     
     for (i,cell) in enumerate(jsondict["cells"])
@@ -65,7 +66,13 @@ function find_parameters_cell(jsondict::OrderedDict)
         error("Found multiple cells containing the tag \"parameters\"")
     end
 
-    return param_cell
+    return param_cell[1]
+end
+
+function view_source( jsondict :: OrderedDict
+                    , cellnum  :: Int
+                    )
+    return view(jsondict["cells"][cellnum]["source"],:)
 end
 
 """
@@ -74,10 +81,11 @@ replace the default values with the passed values and return the jsondict
 function paramitify_jjnb( infile        :: String
                         , passed_params :: Dict
                         )               :: OrderedDict
+
     jsondict = JSON.parsefile(infile, dicttype=OrderedDict)
     pcellnum = find_parameters_cell(jsondict)
 
-    pcell = view(jsondict["cells"][pcellnum][1]["source"],:)
+    pcell = view_source(jsondict, pcellnum)
 
     default_params = OrderedDict()
     for (i,line) in enumerate(pcell)
