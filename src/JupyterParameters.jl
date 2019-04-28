@@ -212,10 +212,9 @@ function jjnbparam(args :: AbstractVector{String})
 end
 
 function jjnbparam()
-	if !haskey(ENV, "JULIA_PROJECT")
-    	# Activate the equivalent of jupyter notebook's `$(pwd)/@.`
-    	Pkg.activate(Base.current_project(ENV["PWD"]))
-	end
+    if haskey(ENV, "JULIA_PROJECT")
+        Pkg.activate(ENV["JULIA_PROJECT"])
+    end
 
     args = copy(ARGS)
     jjnbparam(args)
