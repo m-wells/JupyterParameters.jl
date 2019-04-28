@@ -14,7 +14,6 @@ using JSON
 using ArgParse
 using IJulia
 using Conda
-using Pkg
 
 """
 install jupyter (IF NEEDED) via conda
