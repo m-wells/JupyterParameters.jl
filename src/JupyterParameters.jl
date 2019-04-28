@@ -14,6 +14,7 @@ using JSON
 using ArgParse
 using IJulia
 using Conda
+using Pkg
 
 """
 install jupyter (IF NEEDED) via conda
@@ -211,6 +212,11 @@ function jjnbparam(args :: AbstractVector{String})
 end
 
 function jjnbparam()
+	if !haskey(ENV, "JULIA_PROJECT")
+    	# Activate the equivalent of jupyter notebook's `$(pwd)/@.`
+    	Pkg.activate(Base.current_project(ENV["PWD"]))
+	end
+
     args = copy(ARGS)
     jjnbparam(args)
 end
