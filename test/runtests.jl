@@ -106,6 +106,11 @@ try
         @test_throws ErrorException jjnbparam()
     end
 finally
-    rm(origfile, force=true)
-    rm(outfile, force=true)
+    for file in [origfile, outfile]
+        try
+            rm(file, force=true)
+        catch Exception
+            println("Couldn't remove ", file)
+        end
+    end
 end
