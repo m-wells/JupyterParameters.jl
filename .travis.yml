@@ -2,9 +2,19 @@ language: julia
 os:
   - linux
   - osx
+  - windows
 julia:
   - 0.7
   - 1.0
   - nightly
 notifications:
   email: false
+matrix:
+  include:
+    - os: windows
+      language: sh
+      before_install:
+        - choco install julia
+      script:
+        - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
+        - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
