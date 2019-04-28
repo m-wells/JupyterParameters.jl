@@ -205,9 +205,8 @@ function jjnbparam(args :: AbstractVector{String})
         printstyled("Wrote ", outfile, '\n', color = :green)
     end
 
-    printstyled("Running ", outfile, '\n', color = :cyan)
-
     push!(jnb_cmd.exec, outfile, "--output", outfile)
+    printstyled("Running ", jnb_cmd.exec, '\n', color = :cyan)
     run(jnb_cmd)
 end
 
