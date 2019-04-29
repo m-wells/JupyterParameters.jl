@@ -177,7 +177,7 @@ function jjnbparam(args :: AbstractVector{String})
     install_jupyter()
     jnb_cmd = IJulia.find_jupyter_subcommand("nbconvert")
 
-    push!(jnb_cmd.exec, "--to=notebook", "--execute", "--allow-errors")
+    push!(jnb_cmd.exec, "--to=notebook", "--execute", "--ExecutePreprocessor.allow_errors=True")
     if "timeout" in keys(passed_params)
         push!(jnb_cmd.exec, "--ExecutePreprocessor.timeout=$(passed_params["timeout"])")
         delete!(passed_params, "timeout")
