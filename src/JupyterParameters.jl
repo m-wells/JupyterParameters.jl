@@ -37,7 +37,7 @@ function install_jupyter()
                         """
                       , color = :cyan
                       )
-           Conda.add("jupyter")
+            Conda.add("jupyter")
         else
             error("$jupyter is not installed, cannot run $subcommand")
         end

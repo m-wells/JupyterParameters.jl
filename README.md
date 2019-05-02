@@ -21,9 +21,20 @@ jjnbparam(["notebook_orig.ipynb","notebook_new.ipynb","--varname1","varvalue1","
 ## How to call jjnbparam from the shell
 We can create an alias in `.bashrc` as
 ```
-alias jjnbparam='julia -E "using JupyterParameters; jjnbparam()"'
+alias jjnbparam='julia -e "using JupyterParameters; jjnbparam()"'
 ```
-and then the command (from the shell) becomes
+or add the following executable script (named `jjnbparam`) to your `PATH`.
+```
+julia --color=yes -e '
+try
+    using JupyterParameters
+catch
+    import Pkg; Pkg.add("JupyterParameters")
+    using JupyterParameters
+end
+jjnbparam()' "$@"
+```
+The command (from the shell) becomes
 ```
 jjnbparam notebook_orig.ipynb notebook_new.ipynb --varname1 varvalue1 --varname2 varvalue2 ...
 ```
