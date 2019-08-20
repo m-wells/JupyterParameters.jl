@@ -27,3 +27,7 @@ matrix:
       script:
         - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
         - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
+codecov: true
+coveralls: true
+after_success:
+  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder()); Coveralls.submit(process_folder())'

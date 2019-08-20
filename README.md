@@ -1,5 +1,7 @@
 # JupyterParameters
 [![Build Status](https://travis-ci.com/m-wells/JupyterParameters.jl.svg?branch=master)](https://travis-ci.com/m-wells/JupyterParameters.jl)
+[![codecov](https://codecov.io/gh/m-wells/JupyterParameters.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/m-wells/JupyterParameters.jl)
+[![Coverage Status](https://coveralls.io/repos/github/m-wells/JupyterParameters.jl/badge.svg?branch=master)](https://coveralls.io/github/m-wells/JupyterParameters.jl?branch=master)
 
 Treat Jupyter notebooks as visual scripts which can be executed from the command line or from a script.
 JupyterParameters creates and executes a new copy of the notebook with the parameters that have been passed and preserves the original.
